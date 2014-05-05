@@ -13,7 +13,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 
 	[default]
 	driver = pdo_mysql;
-	host = phpmyadmin.local;
+	host = localhost;
 	db_name = '';
 	user = 'root';
 	password = '';
