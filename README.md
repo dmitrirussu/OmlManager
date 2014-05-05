@@ -32,3 +32,24 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 
 	//generate only one entity
 	php generate.php [DB_CONF_NAME] [TABLE_NAME]
+
+===
+3. Way of Using OmlORManager
+
+```php
+
+	//Run transaction
+	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
+    OmlORManager::ddl()->package(new \TestPackage\Test())->commitTransaction();
+    OmlORManager::ddl()->package(new \TestPackage\Test())->rollbackTransaction();
+
+	//OR
+
+	\TestPackage\Models\Users::oml()->beginTransaction();
+	\TestPackage\Models\Users::oml()->commitTransaction();
+	\TestPackage\Models\Users::oml()->rollbackTransaction();
+
+	//Fetch objects
+	$users = OmlORManager::oml()->model(new \TestPackage\Models\Users())->fetch();
+	var_dump($users);
+
