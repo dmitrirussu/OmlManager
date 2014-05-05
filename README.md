@@ -36,7 +36,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 ```
 
 ===
-3. Way of Using OmlORManager
+3. Type of Using OmlORManager
 ===
 
 ```php
