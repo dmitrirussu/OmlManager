@@ -88,7 +88,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	$user = \TestPackage\Models\Users::oml()->fetchOne('age', 26, '<=');
 	var_dump($user);
 
-	$users = \TestPackage\Models\Users::oml()->fetchAll('age', 26, '<=');
+	$users = \TestPackage\Models\Users::oml()->fetchAll('age', array(26, 10, 16, 18), 'in');
 	var_dump($users);
 
 	$exp = new \OmlManager\ORM\Query\Expression\Expression();
