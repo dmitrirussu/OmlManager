@@ -20,7 +20,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	port = '';
 	socket = '';
 
-	[db_test]
+	[db_test] #[DB_CONF_NAME]
 	driver = pdo_mysql;
 	host = localhost;
 	db_name = test;
