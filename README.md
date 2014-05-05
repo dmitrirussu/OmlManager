@@ -1,7 +1,9 @@
-OmlManager v1.0
+OmlManager v1.0, Object Manipulation Language
 ==========
+This is an ORM DataBase Manager. Which is easier to learn and better for using
 
-OmlManager - Object Manipulation Language, Dabatabse ORM - Object Relational Mapping
+About ORM.
+http://en.wikipedia.org/wiki/Object-relational_mapping
 
 ===========
 1. Config databases
