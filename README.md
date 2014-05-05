@@ -24,7 +24,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 ===
 2. Generate Database entities (Console command)
 ===
-
+	libs/OmlManager/Console/
 ```php
 
 	//generate all database entities
