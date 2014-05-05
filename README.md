@@ -39,6 +39,15 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 3. Type of Using OmlORManager
 ===
 
+	OmlORManager::ddl()->package()->*.*
+	OmlORManager::dml()->*.* [->select()->model()->, ->insert()->model()->, ->update()->model()->, ->delete()->model()]
+	OmlORManager::oml()->model()->*.*
+	OmlORManager::oml()->*.*
+
+	OmlORManager::oml()->model($object)->fetchAll($fieldName, $value, $operator, $limit = array(0, 30));
+	OmlORManager::oml()->model($object)->delete();
+	OmlORManager::oml()->model($object)->deleteBy(new \OmlManager\ORM\Query\Expression\Expression());
+
 ```php
 	//Run transaction
 	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
