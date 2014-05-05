@@ -50,7 +50,8 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
     OmlORManager::ddl()->package(new \TestPackage\Test())->rollbackTransaction();
 
 	//DML
-	OmlORManager::dml()->*.* [->select()->model()->, ->insert()->model()->, ->update()->model()->, ->delete()->model()]
+	OmlORManager::dml()->*.* [->select()->model($modelObject)->, ->insert()->model($modelObject)->,
+								->update()->model($modelObject)->, ->delete()->model($modelObject)]
 
 	$exp = new \OmlManager\ORM\Query\Expression\Expression();
     	$exp->field('u.id')->equal(11)->andExp()->field('u.name')->like('%Vasea');
