@@ -37,7 +37,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 
 ===
 3. Way of Using OmlORManager
-
+===
 
 ```php
 	//Run transaction
