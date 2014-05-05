@@ -44,8 +44,14 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	//DDL
 	OmlORManager::ddl()->package()->*.*
 
+	//Run transaction
+	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
+    OmlORManager::ddl()->package(new \TestPackage\Test())->commitTransaction();
+    OmlORManager::ddl()->package(new \TestPackage\Test())->rollbackTransaction();
+
 	//DML
 	OmlORManager::dml()->*.* [->select()->model()->, ->insert()->model()->, ->update()->model()->, ->delete()->model()]
+
 	$exp = new \OmlManager\ORM\Query\Expression\Expression();
     	$exp->field('u.id')->equal(11)->andExp()->field('u.name')->like('%Vasea');
 
@@ -62,13 +68,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	OmlORManager::oml()->model($object)->delete();
 	OmlORManager::oml()->model($object)->deleteBy(new \OmlManager\ORM\Query\Expression\Expression());
 
-	//Run transaction
-	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
-    OmlORManager::ddl()->package(new \TestPackage\Test())->commitTransaction();
-    OmlORManager::ddl()->package(new \TestPackage\Test())->rollbackTransaction();
-
-	//OR
-
+	//Run Transaction
 	\TestPackage\Models\Users::oml()->beginTransaction();
 	\TestPackage\Models\Users::oml()->commitTransaction();
 	\TestPackage\Models\Users::oml()->rollbackTransaction();
