@@ -56,7 +56,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 ```php
 
 	//DDL
-	OmlORManager::ddl()->package()->*.*
+	OmlORManager::ddl()->package(new \TestPackage\Test())->*.*
 
 	//Run transaction
 	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
