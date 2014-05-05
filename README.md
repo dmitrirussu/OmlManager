@@ -77,6 +77,29 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	//Fetch objects
 	$users = OmlORManager::oml()->model(new \TestPackage\Models\Users())->fetch();
 	var_dump($users);
+
+
+	$users = \TestPackage\Models\Users::oml()->fetch(array(0, 30));
+	var_dump($users);
+
+	$user = \TestPackage\Models\Users::oml()->fetchByPk(11);
+	var_dump($user);
+
+	$user = \TestPackage\Models\Users::oml()->fetchOne('age', 26, '<=');
+	var_dump($user);
+
+	$users = \TestPackage\Models\Users::oml()->fetchAll('age', 26, '<=');
+	var_dump($users);
+
+	$exp = new \OmlManager\ORM\Query\Expression\Expression();
+	$exp->field('name')->like('Enry%');
+
+	$user = \TestPackage\Models\Users::oml()->fetchOneBy($exp);
+	var_dump($user);
+
+	$users = \TestPackage\Models\Users::oml()->fetchAllBy($exp);
+	var_dump($users);
+
 ```
 
 
