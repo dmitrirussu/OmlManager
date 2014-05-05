@@ -3,11 +3,11 @@ OmlManager v1.0
 
 OmlManager - Object Manipulation Language, Dabatabse ORM - Object Relational Mapping
 
-==
+===========
 1. Config databases
-
+===========
 	libs/OmlManager/Config/databases.ini
-
+```ini
 	[db_test]
 	driver = pdo_mysql;
 	host = localhost;
@@ -17,7 +17,13 @@ OmlManager - Object Manipulation Language, Dabatabse ORM - Object Relational Map
 	port = '';
 	socket = '';
 
+```
+
+===
 2. Generate Database entities (Console command)
+===
+
+```php
 
 	//generate all database entities
 	php generate.php [DB_CONF_NAME]
