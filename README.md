@@ -70,7 +70,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	$exp = new \OmlManager\ORM\Query\Expression\Expression();
     	$exp->field('u.id')->equal(11)->andExp()->field('u.name')->like('%Vasea');
 
-    OmlORManager::dml()->select()->model(new \TestPackage\Models\Users(), 'u')
+    OmlORManager::dml()->select('u.*')->model(new \TestPackage\Models\Users(), 'u')
     	->join('u.id = p.user_id')->model(new \TestPackage\Store\Privs(), 'p')
     	->expression($exp)
     	->limit(0, 10)
