@@ -10,6 +10,16 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 ===========
 	libs/OmlManager/Config/databases.ini
 ```ini
+
+	[default]
+	driver = pdo_mysql;
+	host = phpmyadmin.local;
+	db_name = '';
+	user = 'root';
+	password = '';
+	port = '';
+	socket = '';
+
 	[db_test]
 	driver = pdo_mysql;
 	host = localhost;
