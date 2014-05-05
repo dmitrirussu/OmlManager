@@ -20,7 +20,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	port = '';
 	socket = '';
 
-	[db_test] #[DB_CONF_NAME]
+	[db_test]
 	driver = pdo_mysql;
 	host = localhost;
 	db_name = test;
@@ -36,6 +36,10 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 ===
 	libs/OmlManager/Console/
 ```php
+
+	//Example
+	//[DB_CONF_NAME] = db_test
+	//[TABLE_NAME] = users
 
 	//generate all database entities
 	php generate.php [DB_CONF_NAME]
