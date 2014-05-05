@@ -39,16 +39,29 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 3. Type of Using OmlORManager
 ===
 
+```php
+
+	//DDL
 	OmlORManager::ddl()->package()->*.*
+
+	//DML
 	OmlORManager::dml()->*.* [->select()->model()->, ->insert()->model()->, ->update()->model()->, ->delete()->model()]
+	$exp = new \OmlManager\ORM\Query\Expression\Expression();
+    	$exp->field('u.id')->equal(11)->andExp()->field('u.name')->like('%Vasea');
+
+    OmlORManager::dml()->select()->model(new \TestPackage\Models\Users(), 'u')
+    	->join('u.id = p.user_id')->model(new \TestPackage\Store\Privs(), 'p')
+    	->expression($exp)
+    	->limit(0, 10)
+    	->fetchAll();
+
+    //OML
 	OmlORManager::oml()->model()->*.*
 	OmlORManager::oml()->*.*
-
 	OmlORManager::oml()->model($object)->fetchAll($fieldName, $value, $operator, $limit = array(0, 30));
 	OmlORManager::oml()->model($object)->delete();
 	OmlORManager::oml()->model($object)->deleteBy(new \OmlManager\ORM\Query\Expression\Expression());
 
-```php
 	//Run transaction
 	OmlORManager::ddl()->package(new \TestPackage\Test())->beginTransaction();
     OmlORManager::ddl()->package(new \TestPackage\Test())->commitTransaction();
@@ -63,4 +76,6 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	//Fetch objects
 	$users = OmlORManager::oml()->model(new \TestPackage\Models\Users())->fetch();
 	var_dump($users);
+```
+
 
