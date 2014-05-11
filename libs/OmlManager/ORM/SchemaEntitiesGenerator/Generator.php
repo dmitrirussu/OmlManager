@@ -131,9 +131,9 @@ abstract class Generator {
 	protected function createPackageFolder() {
 
 		//create package Of DataBase entities
-		if ( !is_dir($this->realPath . '/' . $this->schemaName.'Package/Models/') ) {
+		if ( !is_dir($this->realPath . '/' . $this->schemaName.'Package/Model/') ) {
 			//create Folder of Models
-			mkdir($this->realPath . '/' . $this->schemaName.'Package/Models/', 0777, true);
+			mkdir($this->realPath . '/' . $this->schemaName.'Package/Model/', 0777, true);
 		}
 
 		//create Folder of Storing Models Methods

@@ -76,10 +76,10 @@ class EntityGenerator extends Generator {
 		$className = implode(array_map('ucfirst', explode('_', strtolower($entityName))));
 		$schemaName = implode(array_map('ucfirst', explode('_', strtolower($this->dataBaseName))));
 
-		$f = fopen($this->realPath . '/' . $schemaName.'Package/Models/' . $className.'.php', 'w');
+		$f = fopen($this->realPath . '/' . $schemaName.'Package/Model/' . $className.'.php', 'w');
 
 		//entity package namespace
-		$namespace = GeneratorConf::$_NAMESPACE . $schemaName . "Package\\Models;\n";
+		$namespace = GeneratorConf::$_NAMESPACE . $schemaName . "Package\\Model;\n";
 
 		//namespace use package
 		$namespace .= GeneratorConf::$_USE . $schemaName ."Package\\{$schemaName};";
