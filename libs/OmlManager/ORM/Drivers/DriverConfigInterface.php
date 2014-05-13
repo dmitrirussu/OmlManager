@@ -18,5 +18,4 @@ interface DriverConfigInterface {
 	public function getDataBaseUser();
 	public function getDataBasePassword();
 	public function getDataBasePort();
-	public function getDataBaseSocket();
 }

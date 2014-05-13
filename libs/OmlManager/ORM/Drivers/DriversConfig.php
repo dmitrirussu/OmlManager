@@ -49,7 +49,6 @@ class DriversConfig implements DriverConfigInterface {
 		self::$DBS_CONNECTIONS->default->user = 'root';
 		self::$DBS_CONNECTIONS->default->password = '';
 		self::$DBS_CONNECTIONS->default->port = '';
-		self::$DBS_CONNECTIONS->default->socket = '';
 
 		if ( file_exists(realpath(__DIR__) . self::DATABASE_CONF_FILE_PATH)) {
 
@@ -64,7 +63,6 @@ class DriversConfig implements DriverConfigInterface {
 					self::$DBS_CONNECTIONS->{$dbName}->user = (isset($database['user']) ? $database['user'] : '');
 					self::$DBS_CONNECTIONS->{$dbName}->password = (isset($database['password']) ? $database['password'] : '');
 					self::$DBS_CONNECTIONS->{$dbName}->port = (isset($database['port']) ? $database['port'] : '');
-					self::$DBS_CONNECTIONS->{$dbName}->socket = (isset($database['socket']) ? $database['socket'] : '');
 				}
 			}
 		}
@@ -174,19 +172,6 @@ class DriversConfig implements DriverConfigInterface {
 		}
 
 		return self::$DBS_CONNECTIONS->{$this->confName}->{'port'};
-	}
-
-	/**
-	 * @return mixed
-	 * @throws DriverConfigException
-	 */
-	public function getDataBaseSocket() {
-		if ( !isset(self::$DBS_CONNECTIONS->{$this->confName}->{'socket'}) ) {
-
-			throw new DriverConfigException('Missing socket database ' . $this->confName);
-		}
-
-		return self::$DBS_CONNECTIONS->{$this->confName}->{'socket'};
 	}
 }
 

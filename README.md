@@ -18,7 +18,6 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	user = 'root';
 	password = '';
 	port = '';
-	socket = '';
 
 	[db_test]
 	driver = pdo_mysql;
@@ -27,7 +26,6 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
 	user = root;
 	password = ;
 	port = '';
-	socket = '';
 
 ```
 
