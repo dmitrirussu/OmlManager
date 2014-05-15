@@ -11,14 +11,12 @@ echo "\nStart!";
 
 if ( $entityName ) {
 
-	$generate = new \OmlManager\ORM\SchemaEntitiesGenerator\EntityGenerator($dataBaseName, realpath(__DIR__));
-
-	$generate->generateEntity($entityName);
+	\OmlManager\ORM\SchemaEntitiesGenerator\OmlEntitiesGeneratorFactory::create($dataBaseName, realpath(__DIR__))
+		->generateEntity($entityName);
 }
 else{
 
-	$generate = new \OmlManager\ORM\SchemaEntitiesGenerator\SchemaGenerator($dataBaseName, realpath(__DIR__));
-
-	$generate->generateSchemaEntities();
+	\OmlManager\ORM\SchemaEntitiesGenerator\OmlEntitiesGeneratorFactory::create($dataBaseName, realpath(__DIR__))
+		->generateSchemaEntities();
 }
 echo "\ndone!";

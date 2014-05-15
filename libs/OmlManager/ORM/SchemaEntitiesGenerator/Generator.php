@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by Dmitri Russu. <dmitri.russu@gmail.com>
+ * Created by Dumitru Russu.
  * Date: 01.05.2014
  * Time: 15:47
  * OmlManager\ORM\Console${NAME}
@@ -17,6 +17,7 @@ abstract class Generator {
 	public $dataBaseName;
 	public $schemaName;
 	public $realPath;
+	public $schemaNameSpace = '';
 
 	/**
 	 * @var DriversConfig
@@ -31,11 +32,12 @@ abstract class Generator {
 	protected $driverConfName;
 	protected $driverName;
 
-	public function __construct($dbConfName, $path = null) {
+	public function __construct($dbConfName, $path = null, $nameSpace = null) {
 		$this->driverConfig = new DriversConfig($dbConfName);
 
 		$this->dataBaseName = $this->driverConfig->getDataBaseName();
 		$this->schemaName = implode(array_map('ucfirst', explode('_', strtolower($this->dataBaseName))));
+		$this->schemaNameSpace = $nameSpace;
 		$this->driverConfName = $this->driverConfig->getDriverConfName();
 		$this->driverName = $this->driverConfig->getDataBaseDriverName();
 
