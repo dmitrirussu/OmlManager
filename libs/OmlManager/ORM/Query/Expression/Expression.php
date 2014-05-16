@@ -44,8 +44,8 @@ class Expression implements ExpressionInterface {
 	private $fieldsValues = array();
 	private $fieldName = null;
 	private $alias = null;
-
 	private $prepareStatement = array();
+	private $inFieldSValues = array();
 
 	public function __construct($expression = null) {
 		if ( $expression === '1=1') {
@@ -98,7 +98,20 @@ class Expression implements ExpressionInterface {
 
 					$valueType = new ValueTypeValidator($value, $type, $property['field']);
 
-					$this->prepareStatement[':'.$alias.$property['field']] = implode(',', $valueType->getValue());
+					if ( is_array($valueType->getValue()) ) {
+
+						$i = 1;
+						foreach($valueType->getValue() AS $v ) {
+
+							$this->prepareStatement[':'.$alias.$property['field'].'_'.$i] = $v;
+
+							$i++;
+						}
+					}
+					else {
+
+						$this->prepareStatement[':'.$alias.$property['field']] = $valueType->getValue();
+					}
 				}
 			}
 			else {
@@ -112,8 +125,20 @@ class Expression implements ExpressionInterface {
 				$valueType = new ValueTypeValidator($value, $type, $modelFields['field']);
 
 				$fieldMacros = ':'.$modelFields['field'];
+				$values = $valueType->getValue();
+				if ( is_array($values) ) {
 
-				$this->prepareStatement[$fieldMacros] = implode(',', $valueType->getValue());
+					$i = 1;
+					foreach($values AS $v) {
+
+						$this->prepareStatement[$fieldMacros.'_'.$i] = $v;
+						$i++;
+					}
+				}
+				else {
+
+					$this->prepareStatement[$fieldMacros] = $valueType->getValue();
+				}
 			}
 		}
 	}
@@ -267,9 +292,21 @@ class Expression implements ExpressionInterface {
 	 */
 	public function in(array $values) {
 
-		$this->expression .= str_replace('VALUES', ':'.$this->alias.$this->fieldName, self::$_IN);
+		$this->inFieldSValues = array();
 
-		$this->setFieldValue($values);
+		if ( count($values) ) {
+			$i = 1;
+
+			foreach($values AS $value) {
+
+				$this->inFieldSValues[':'.$this->alias.$this->fieldName.'_'.$i] = $value;
+				$i++;
+			}
+		}
+
+		$this->expression .= str_replace('VALUES', implode(', ', array_keys($this->inFieldSValues)), self::$_IN);
+
+		$this->setFieldValue($this->inFieldSValues);
 
 		return $this;
 	}
@@ -448,6 +485,7 @@ class Expression implements ExpressionInterface {
 			$this->fieldsValues[$this->alias][$this->fieldName] = $value;
 		}
 		else {
+
 			$this->fieldsValues[$this->fieldName] = $value;
 		}
 

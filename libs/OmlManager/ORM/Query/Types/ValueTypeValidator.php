@@ -111,7 +111,7 @@ class ValueTypeValidator implements ValueTypeInterface {
 						throw new ValueTypeException('Wrong field \''. $this->fieldName .'\' value type, should be EMPTY');
 					}
 
-					$this->value = "";
+					$this->value = '';
 
 					break;
 				}
@@ -134,7 +134,7 @@ class ValueTypeValidator implements ValueTypeInterface {
 						throw new ValueTypeException('Wrong field \''. $this->fieldName .'\' value type, should be string');
 					}
 
-					$this->value = (string)trim($this->value);
+					$this->value = trim($this->value);
 
 					break;
 				}
