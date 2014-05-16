@@ -47,8 +47,8 @@ class Expression implements ExpressionInterface {
 
 	private $prepareStatement = array();
 
-	public function __construct($expression = null) {
-		if ( $expression ) {
+	public function __construct($expression = '1=1') {
+		if ( $expression !== '1=1') {
 
 			$this->expressions[] = $expression;
 		}
