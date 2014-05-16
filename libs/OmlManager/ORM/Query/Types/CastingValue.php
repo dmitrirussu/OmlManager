@@ -140,6 +140,8 @@ class CastingValue {
 			case ValueTypes::VALUE_TYPE_SET:
 			case ValueTypes::VALUE_TYPE_TIMESTAMP:
 			case ValueTypes::VALUE_TYPE_DATETIME:
+			case ValueTypes::VALUE_TYPE_DATE:
+			case ValueTypes::VALUE_TYPE_TIME:
 			case ValueTypes::VALUE_TYPE_ENUM:
 			case ValueTypes::VALUE_TYPE_BLOB:
 			case ValueTypes::VALUE_TYPE_LONGBLOB:

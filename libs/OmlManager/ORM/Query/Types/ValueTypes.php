@@ -45,4 +45,6 @@ class ValueTypes {
 	const VALUE_TYPE_SET = 'set';
 	const VALUE_TYPE_TIMESTAMP = 'timestamp';
 	const VALUE_TYPE_DATETIME = 'datetime';
+	const VALUE_TYPE_DATE = 'date';
+	const VALUE_TYPE_TIME = 'time';
 }
