@@ -45,7 +45,8 @@ class ValueTypeValidator implements ValueTypeInterface {
 	}
 
 	public function getValue() {
-		$values = is_array($this->value) ? $this->value : array($this->value);
+		$isArray = is_array($this->value);
+		$values = $isArray ? $this->value : array($this->value);
 
 		foreach ($values AS &$value) {
 			$this->value = $value;
@@ -148,7 +149,7 @@ class ValueTypeValidator implements ValueTypeInterface {
 			$value = $this->value;
 		}
 
-		return $values;
+		return ($isArray ? $values : $this->value);
 	}
 
 	/**
