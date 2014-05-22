@@ -59,7 +59,7 @@ class DriversConfig implements DriverConfigInterface {
 				foreach ($databasesConfig AS $dbName => $database) {
 					self::$DBS_CONNECTIONS->{$dbName} = new \stdClass();
 					self::$DBS_CONNECTIONS->{$dbName}->driver = (isset($database['driver']) ? $database['driver'] : self::DRIVER_PDO_MYSQL);
-					self::$DBS_CONNECTIONS->{$dbName}->host = (isset($database['host']) ? $database['host'] : 'localhost');
+					self::$DBS_CONNECTIONS->{$dbName}->host = (isset($database['host']) ? $database['host'] : '');
 					self::$DBS_CONNECTIONS->{$dbName}->db_name = (isset($database['db_name']) ? $database['db_name'] : '');
 					self::$DBS_CONNECTIONS->{$dbName}->user = (isset($database['user']) ? $database['user'] : '');
 					self::$DBS_CONNECTIONS->{$dbName}->password = (isset($database['password']) ? $database['password'] : '');

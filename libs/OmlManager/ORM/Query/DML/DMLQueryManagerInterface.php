@@ -8,6 +8,7 @@
 
 namespace OmlManager\ORM\Query\DML;
 
+use OmlManager\ORM\Query\DDL\Clauses\NativeQuery;
 use OmlManager\ORM\Query\DML\Clauses\ClauseSelectInterface;
 use OmlManager\ORM\Query\DML\Clauses\DMLClauseInterface;
 use OmlManager\ORM\Query\DML\Clauses\ExpressionClauseInterface;
@@ -36,4 +37,9 @@ interface DMLQueryManagerInterface {
 	 * @return DeleteClause
 	 */
 	public function delete();
+
+	/**
+	 * @return NativeQuery
+	 */
+	public function nativeQuery($object, $sql, array $bindParamValues = array());
 } 

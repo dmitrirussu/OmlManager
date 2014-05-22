@@ -94,6 +94,11 @@ class PDODriver implements DriverInterface, DriverTransactionInterface {
 		return $result;
 	}
 
+	public function fetchAssoc() {
+
+		return $this->queryResult->fetch(\PDO::FETCH_ASSOC);
+	}
+
 	public function fetchFields() {
 
 	}
