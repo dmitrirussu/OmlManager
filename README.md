@@ -61,7 +61,7 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
     OmlORManager::ddl()->package(new \TestPackage\Test())->commitTransaction();
     OmlORManager::ddl()->package(new \TestPackage\Test())->rollbackTransaction();
 
-	//DML
+	//DML Query (Object Manipulation Language)
 	OmlORManager::dml()->*.* [->select()->model($modelObject)->, ->insert()->model($modelObject)->,
 								->update()->model($modelObject)->, ->delete()->model($modelObject)]
 
@@ -73,6 +73,21 @@ http://en.wikipedia.org/wiki/Object-relational_mapping
     	->expression($exp)
     	->limit(0, 10)
     	->fetchAll();
+
+    //Native Query
+	$query = 'SELECT * FROM users WHERE name = :name AND age > :age';
+
+	OmlORManager::dml()
+		->nativeQuery($query, array(':name' => 'Thom', 'age' => 12), new \TestPackage\Models\Users())
+		->fetchAll();
+
+	OmlORManager::dml()
+		->nativeQuery($query, array(':name' => 'Thom', 'age' => 12), new \TestPackage\Models\Users())
+		->fetchOne();
+
+	OmlORManager::dml()
+		->nativeQuery($query, array(':name' => 'Thom', 'age' => 12))
+		->fetchAssoc();
 
     //OML
 	OmlORManager::oml()->model()->*.*
