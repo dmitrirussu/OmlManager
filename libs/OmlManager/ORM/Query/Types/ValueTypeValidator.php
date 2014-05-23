@@ -71,7 +71,7 @@ class ValueTypeValidator implements ValueTypeInterface {
 				case ValueTypes::VALUE_TYPE_TINYINT:
 				case ValueTypes::VALUE_TYPE_INT: {
 
-					if ( !is_int($this->value) ) {
+					if ( !is_int($this->value) && !is_bool($this->value) ) {
 
 						throw new ValueTypeException('Wrong field \''. $this->fieldName .'\' value type, should be integer');
 					}
