@@ -1,7 +1,7 @@
 <?php
 function __autoload( $className ) {
-
-	require_once '../../'.$className .'.php';
+	str_replace('\\', '/', $className);
+	require_once '../'.$className .'.php';
 }
 
 $dataBaseName = $argv[1];
