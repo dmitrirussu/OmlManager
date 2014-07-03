@@ -8,6 +8,8 @@
 
 namespace OmlManager\ORM\Drivers;
 
+use OmlManager\ORM\Drivers\Exceptions\DriverConfigException;
+
 class DriversConfig implements DriverConfigInterface {
 
 	const DRIVER_PDO_MYSQL = 'pdo_mysql';
@@ -174,8 +176,4 @@ class DriversConfig implements DriverConfigInterface {
 
 		return self::$DBS_CONNECTIONS->{$this->confName}->{'port'};
 	}
-}
-
-class DriverConfigException extends \Exception {
-
 }
