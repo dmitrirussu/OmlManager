@@ -86,17 +86,17 @@ class PDODriver implements DriverInterface, DriverTransactionInterface {
 		return (empty($this->queryResult) ? false : $this->queryResult->fetchObject($object));
 	}
 
+	/**
+	 * @param $query
+	 * @param array $prepare
+	 * @return \PDOStatement
+	 */
 	public function execute($query, array $prepare) {
 
 		$this->queryResult = $this->driver->prepare( $query );
-		$result = $this->queryResult->execute( $prepare );
+		$this->queryResult->execute( $prepare );
 
-		return $result;
-	}
-
-	public function fetchAssoc() {
-
-		return $this->queryResult->fetch(\PDO::FETCH_ASSOC);
+		return $this->queryResult;
 	}
 
 	public function fetchFields() {

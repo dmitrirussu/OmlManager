@@ -19,7 +19,12 @@ interface DriverInterface {
 	public function query($sql, array $preparedStatement);
 	public function fetchAll($object = 'stdClass');
 	public function fetchOne($object = 'stdClass');
-	public function fetchAssoc();
+
+	/**
+	 * @param $query
+	 * @param array $prepare
+	 * @return \PDOStatement
+	 */
 	public function execute($query, array $prepare);
 	public function fetchFields();
 
