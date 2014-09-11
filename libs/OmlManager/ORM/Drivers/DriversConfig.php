@@ -29,7 +29,7 @@ class DriversConfig implements DriverConfigInterface {
 
 	private static $DBS_CONNECTIONS;
 	private $confName;
-	const DATABASE_CONF_FILE_PATH = '/../Config/databases.ini';
+	const DATABASE_CONF_FILE_PATH = '/../../../config/databases.ini';
 
 
 	public function __construct($dbConfigName = 'default') {
@@ -51,7 +51,6 @@ class DriversConfig implements DriverConfigInterface {
 		self::$DBS_CONNECTIONS->default->user = 'root';
 		self::$DBS_CONNECTIONS->default->password = '';
 		self::$DBS_CONNECTIONS->default->port = '';
-
 
 		if ( file_exists(dirname(__DIR__) . self::DATABASE_CONF_FILE_PATH) ) {
 

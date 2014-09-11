@@ -8,6 +8,8 @@
 
 namespace OmlManager\ORM\Query\DML\Clauses;
 
+
+use OmlManager\ORM\Drivers\DriverInterface;
 use OmlManager\ORM\Models\Reader;
 use OmlManager\ORM\Query\DML\Exceptions\DMLQueryManagerException;
 use OmlManager\ORM\SDB\SDBManagerConnections;
