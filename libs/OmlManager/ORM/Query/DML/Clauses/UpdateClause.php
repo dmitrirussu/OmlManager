@@ -40,9 +40,12 @@ class UpdateClause implements DMLClauseInterface, DMLUpdateClauseInterface {
 	public function models(array $models) {
 
 		$this->models = $models;
-		$this->modelsReader = array_map(function($model) use ($models) {
-			return new Reader($model);
-		}, $models);
+
+		if ( $models ) {
+			foreach($models AS $model) {
+				$this->modelsReader[] = new Reader($model);
+			}
+		}
 
 		return $this;
 	}
@@ -73,22 +76,19 @@ class UpdateClause implements DMLClauseInterface, DMLUpdateClauseInterface {
 				$statements = array();
 				$expressionObject = $this->expressionObject;
 
-				$fieldValues = array_map(function($field) use ($modelReader, &$statements, $expressionObject) {
+				if ( $fields ) {
+					foreach($fields AS $field) {
+						if ( !isset($field['primary_key']) || empty($expressionObject)) {
 
-					if ( !isset($field['primary_key']) || empty($expressionObject)) {
+							$propertyValue = $modelReader->getValueByFieldName($field['field']);
 
-						$propertyValue = $modelReader->getValueByFieldName($field['field']);
-
-						if ( $propertyValue !== null ) {
-							$statements[':'.$field['field']] = $propertyValue;
-							return $field['field'] . '= :'.$field['field'];
+							if ( $propertyValue !== null ) {
+								$statements[':'.$field['field']] = $propertyValue;
+								$fieldValues[] = "`{$field['field']}`" . '= :'.$field['field'];
+							}
 						}
 					}
-
-					return false;
-
-				}, $fields);
-
+				}
 
 				if ( $this->expressionObject ) {
 					$statements = array_merge($statements, $this->expressionObject->getPreparedStatement());
@@ -97,10 +97,16 @@ class UpdateClause implements DMLClauseInterface, DMLUpdateClauseInterface {
 						array($tableName, implode(', ', array_filter($fieldValues)), $this->_STATEMENT), $this->_UPDATE);
 				}
 				else {
-
 					$this->_UPDATE = str_replace(array(self::TABLE_NAME, self::FIELD_AND_VALUES, self::STATEMENT),
 						array($tableName, implode(', ', array_filter($fieldValues)), $modelReader->getModelPrimaryKey().'= :'.$modelReader->getModelPrimaryKey()), $this->_UPDATE);
 				}
+
+//				var_dump($this->_UPDATE);
+//				echo '<pre>';
+//				print_r($statements);
+//				echo '</pre>';
+//
+//				die;
 
 				$result = SDBManagerConnections::getManager($modelReader->getModelDataDriverConfName())->getDriver()->execute($this->_UPDATE, $statements);
 

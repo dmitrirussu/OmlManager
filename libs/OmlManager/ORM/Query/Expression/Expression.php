@@ -48,6 +48,7 @@ class Expression extends ExpressionInterface {
 	private $inFieldSValues = array();
 
 	public function __construct($expression = null) {
+		$this->expression = null;
 		if ( $expression === '1=1') {
 
 			$this->expressions[] = $expression;
@@ -240,7 +241,6 @@ class Expression extends ExpressionInterface {
 	public function field($fieldName) {
 
 		$fieldArray = explode('.', $fieldName);
-
 		$this->fieldName = (isset($fieldArray[1]) ? $fieldArray[1] : $fieldArray[0]);
 
 		if ( isset($fieldArray[1]) ) {
@@ -278,9 +278,9 @@ class Expression extends ExpressionInterface {
 	 */
 	public function diff($value) {
 
-		$this->setFieldValue($value);
-
 		$this->expression .= self::$_DIFF . ':'. $this->alias.$this->fieldName;
+
+		$this->setFieldValue($value);
 
 		return $this;
 	}
@@ -435,26 +435,19 @@ class Expression extends ExpressionInterface {
 	 * @return string
 	 */
 	public function getExpressionsDone() {
-
-		if ( empty($this->expressionsDone) && !empty($this->expressions) ) {
-
-			//set default expressions
-			$this->expressionsDone = $this->expressions;
-		}
-		elseif( $this->expressions ) {
-
-			//set end of expressions
-			$this->expressionsDone[] = implode($this->expressions);
+		if ( !empty($this->expressions) ) {
+			$this->expressions[] = $this->expression;
+			//set default expression
+			$expression = implode($this->expressions);
 		}
 		else {
 			//set simple wrote expression
-			$this->expressionsDone[] = $this->expression;
+			$expression = $this->expression;
 		}
 
-		$this->expression = null;
-
-		return implode($this->expressionsDone);
+		return $expression;
 	}
+
 
 	/*
 	 * return Expression
@@ -485,7 +478,6 @@ class Expression extends ExpressionInterface {
 			$this->fieldsValues[$this->alias][$this->fieldName] = $value;
 		}
 		else {
-
 			$this->fieldsValues[$this->fieldName] = $value;
 		}
 
@@ -534,7 +526,8 @@ class Expression extends ExpressionInterface {
 
 				break;
 			}
-			case '<>': {
+			case '<>':
+			case '!=': {
 				$this->diff($value);
 
 				break;

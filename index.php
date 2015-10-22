@@ -10,26 +10,25 @@ use \OmlManager\ORM\OmlORManager;
 try {
 
 
-	\TestPackage\Models\Users::oml()->beginTransaction();
 
-	$user = new \TestPackage\Models\Users();
 
-	$user->setName('UserName');
-	$user->setAge(12);
 
-	$result = OmlORManager::oml()->model($user)->flush();
+	$exp = new \OmlManager\ORM\Query\Expression\Expression();
 
-	\TestPackage\Models\Users::oml()->commitTransaction();
+	$exp->field('cn_key')->in(array('bk_dashboard', 'bk_login'));
+
+	$cotrollers = OmlORManager::dml()->select()
+		->model(new \LaunchPackage\Model\Controllers())
+		->expression($exp)->fetchAll();
 
 	echo '<pre>';
-		var_dump(\TestPackage\Models\Users::oml()->fetch());
+		var_dump($cotrollers);
 	echo '</pre>';
 
 }
  catch (Exception $e) {
 
 	print_r($e->getMessage());
-//	print_r($e->getTrace());
 }
 
 
