@@ -29,7 +29,7 @@ class DriversConfig implements DriverConfigInterface {
 
 	private static $DBS_CONNECTIONS;
 	private $confName;
-	const DATABASE_CONF_FILE_PATH = '/../../../config/databases.ini';
+	const DATABASE_CONF_FILE_PATH = '../../config/databases.ini';
 
 
 	public function __construct($dbConfigName = 'default') {
