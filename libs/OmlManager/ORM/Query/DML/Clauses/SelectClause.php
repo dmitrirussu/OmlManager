@@ -78,14 +78,16 @@ class SelectClause implements DMLClauseInterface, ClauseSelectInterface {
 
 	/**
 	 * @return bool|mixed
-	 * @throws \OmlManager\ORM\Models\ReaderException
+	 * @throws \Exception
 	 */
 	public function fetchAssocOne() {
 		$this->limit(0, 1);
 		try {
 			$modelCollection = new ModelCollection($this->getModelReader(),
 				SDBManagerConnections::getManager($this->getModelReader()->getModelDataDriverConfName())
-					->getDriver()->query($this->getQuery(), $this->expression->getPreparedStatement()));
+					->getDriver()
+					->query($this->getQuery(), $this->expression->getPreparedStatement())
+			);
 		}
 		catch(\Exception $e) {
 			throw $e;
@@ -100,9 +102,12 @@ class SelectClause implements DMLClauseInterface, ClauseSelectInterface {
 	 */
 	public function fetchAll($fetchAssoc = false) {
 
-		$modelCollection = new ModelCollection($this->getModelReader(),
+		$modelCollection = new ModelCollection(
+			$this->getModelReader(),
 			SDBManagerConnections::getManager($this->getModelReader()->getModelDataDriverConfName())
-				->getDriver()->query($this->getQuery(), $this->expression->getPreparedStatement()));
+				->getDriver()
+				->query($this->getQuery(), $this->expression->getPreparedStatement())
+		);
 
 		return $modelCollection->getCollections($fetchAssoc);
 	}

@@ -190,20 +190,17 @@ class Reader implements ReaderInterface {
 	/**
 	 * Get Model Properties
 	 * @return array
-	 * @throws ReaderException
 	 */
 	public function getModelPropertiesTokens() {
 
-		if ( !($properties = $this->reflectionModelClass->getProperties()) ) {
-			throw new ReaderException('Missing properties for Model -> ' . $this->reflectionModelClass->getName());
-		}
-
 		$propertyTokens = array();
 
-		foreach($properties as $property) {
-			$this->property = new \ReflectionProperty($this->model, $property->name);
+		if  ($properties = $this->reflectionModelClass->getProperties()) {
+			foreach($properties as $property) {
+				$this->property = new \ReflectionProperty($this->model, $property->name);
 
-			$propertyTokens[] = $this->getPropertyTokens();
+				$propertyTokens[] = $this->getPropertyTokens();
+			}
 		}
 
 		return $propertyTokens;

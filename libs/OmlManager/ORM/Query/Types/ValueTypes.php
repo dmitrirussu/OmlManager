@@ -47,4 +47,19 @@ class ValueTypes {
 	const VALUE_TYPE_DATETIME = 'datetime';
 	const VALUE_TYPE_DATE = 'date';
 	const VALUE_TYPE_TIME = 'time';
+
+	//Mongo DB Data Types
+	const VALUE_TYPE_OBJECT = 'object';
+	const VALUE_TYPE_ARRAY = 'array';
+	const VALUE_TYPE_BINARY_DATA = 'binary';
+	const VALUE_TYPE_UNDEFINED = 'undefined'; //Deprecated.
+	const VALUE_TYPE_OBJECT_ID = 'object_id';
+	const VALUE_TYPE_REGULAR_EXPRESSION = 'string';
+	const VALUE_TYPE_JAVASCRIPT = 'string';
+	const VALUE_TYPE_SYMBOL = 'string';
+	const VALUE_TYPE_JAVASCRIPT_SCOPE = 'string';
+	const VALUE_TYPE_INT_32 = 'int';
+	const VALUE_TYPE_INT_64 = 'int';
+	const VALUE_TYPE_MIN_KEY = 'int'; // Query with -1.
+	const VALUE_TYPE_MAX_KEY = 'int';
 }

@@ -30,4 +30,9 @@ interface DriverInterface {
 
 	public function getDataTypes();
 	public function getConnection();
+
+	public function getAllEntitiesName();
+	public function getAllForeignKey($tableName, $byReferencedTable = true);
+	public function getEntityRelation($entityName, $fieldName);
+	public function getEntityInfo($tableName);
 }

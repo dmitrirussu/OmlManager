@@ -68,17 +68,4 @@ class ModelCollection {
 		return $this->model;
 	}
 
-	/**
-	 * @return bool|mixed
-	 */
-	public function updateCollection() {
-		$this->model = $this->driver->fetchAll('');
-
-		if ( empty($this->model) ) {
-
-			return false;
-		}
-
-		return $this->model;
-	}
 } 

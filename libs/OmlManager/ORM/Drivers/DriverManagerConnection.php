@@ -45,6 +45,11 @@ class DriverManagerConnection {
 				$this->driver = new MsSqlDriver($config);
 				break;
 			}
+			case DriversConfig::DRIVER_MONGO:
+			case DriversConfig::DRIVER_MONGODB: {
+				$this->driver = new MongoDriver($config);
+				break;
+			}
 
 			default: {
 				throw new DriverException('Missing driver type');
