@@ -40,6 +40,7 @@ class Reader implements ReaderInterface {
 		$this->model = $modelObject;
 
 		$parentReflection = $this->reflectionModelClass = new \ReflectionClass($this->model);
+
 		$this->modelInfo = $this->readTokensFromDocComment($this->reflectionModelClass->getDocComment());
 
 		if ( !isset($this->reflectionModelClass->getParentClass()->name) ) {
@@ -75,6 +76,10 @@ class Reader implements ReaderInterface {
 	public function getModel() {
 
 		return $this->model;
+	}
+
+	public function getClassName() {
+		return $this->reflectionModelClass->getName();
 	}
 
 	/**

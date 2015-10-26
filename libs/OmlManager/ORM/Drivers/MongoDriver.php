@@ -9,6 +9,8 @@ namespace OmlManager\ORM\Drivers;
 
 
 
+use OmlManager\ORM\Models\Reader;
+
 class MongoDriver implements DriverInterface, DriverTransactionInterface {
 
 	const DRIVER_MONGODB = 'mongodb';
@@ -45,7 +47,6 @@ class MongoDriver implements DriverInterface, DriverTransactionInterface {
 	 */
 	private $driver;
 	private $driverName = self::DRIVER_MONGODB;
-	private $sql = '';
 
 	/**
 	 * @var \MongoCollection
@@ -89,31 +90,37 @@ class MongoDriver implements DriverInterface, DriverTransactionInterface {
 		return $this->driver;
 	}
 
-	public function query($sql, array $preparedStatement) {
-		$this->execute($sql, $preparedStatement);
-
-		return $this;
+	/**
+	 * @param $className
+	 * @param array $preparedStatement
+	 * @return \MongoCollection
+	 */
+	public function query($collectionName, array $preparedStatement) {
+		return $this->execute($collectionName, $preparedStatement);
 	}
 
-	public function fetchAll($object = 'stdClass') {
-		return $this->queryResult->find($this->sql);
+	public function fetchAll($collectionName = '') {
+		$this->execute($collectionName, array());
+		return $this->queryResult->find();
 	}
 
-	public function fetchOne($object = 'stdClass') {
-		return $this->queryResult->findOne($this->sql);
+	public function fetchOne($collectionName = '') {
+		$this->execute($collectionName, array());
+		return $this->queryResult->findOne();
+	}
+
+	public function getResult() {
+		return $this->queryResult;
 	}
 
 	/**
-	 * @param $query
+	 * @param $className
 	 * @param array $prepare
-	 * @return \PDOStatement
+	 * @return \MongoCollection
+	 * @throws \OmlManager\ORM\Models\ReaderException
 	 */
-	public function execute($query, array $prepare) {
-		if ( $prepare ) {
-			foreach ($prepare AS $field => $value) {
-				$query = str_replace($field, $value, $query);
-			}
-		}
+	public function execute($collectionName, array $prepare) {
+		return $this->queryResult = $this->driver->{$collectionName};
 	}
 
 
@@ -191,7 +198,7 @@ class MongoDriver implements DriverInterface, DriverTransactionInterface {
 
 
 	public function fetchFields() {
-
+		return array();
 	}
 
 	public function getDataTypes() {

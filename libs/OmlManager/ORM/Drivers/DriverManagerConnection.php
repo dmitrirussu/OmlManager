@@ -13,7 +13,7 @@ use OmlManager\ORM\Drivers\Exceptions\DriverException;
 class DriverManagerConnection {
 
 	/**
-	 * @var DriverInterface
+	 * @var DriverInterface|DriverTransactionInterface
 	 */
 	private $driver;
 
@@ -47,6 +47,9 @@ class DriverManagerConnection {
 			}
 			case DriversConfig::DRIVER_MONGO:
 			case DriversConfig::DRIVER_MONGODB: {
+				/**
+				 * @var \MongoClient
+				 */
 				$this->driver = new MongoDriver($config);
 				break;
 			}
@@ -59,9 +62,7 @@ class DriverManagerConnection {
 		$this->getDriver()->connect();
 	}
 
-	/**
-	 * @return DriverInterface|DriverTransactionInterface
-	 */
+
 	public function getDriver() {
 		return $this->driver;
 	}

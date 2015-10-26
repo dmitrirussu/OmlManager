@@ -12,6 +12,7 @@ use OmlManager\ORM\Query\DDL\Clauses\ClauseInterface;
 use OmlManager\ORM\Query\DML\DMLQueryManagerInterface;
 use OmlManager\ORM\Query\DML\DMLQueryManager;
 use OmlManager\ORM\Query\DDL\DDLQueryManager;
+use OmlManager\ORM\Query\OML\OMLNoSQLQueryManager;
 use OmlManager\ORM\Query\OML\OMLQueryManagerBatchOperation;
 use OmlManager\ORM\Query\OML\OMLQueryManagerInterface;
 use OmlManager\ORM\Query\OML\OMLQueryManager;
@@ -41,5 +42,13 @@ abstract class SDBManager implements SDBManagerInterface {
 	public static function ddl() {
 
 		return new DDLQueryManager();
+	}
+
+	/**
+	 * @return OMLQueryManagerInterface|OMLQueryManagerBatchOperation
+	 */
+	public static function noSQL() {
+
+		return new OMLNoSQLQueryManager();
 	}
 }
