@@ -3,7 +3,7 @@
  * Created by Dmitri Russu. <dmitri.russu@gmail.com>
  * Date: 15.04.2014
  * Time: 22:37
- * ${NAMESPACE}${NAME} 
+ * ${NAMESPACE}${NAME}
  */
 namespace OmlManager\ORM\Query\DML\Clauses;
 
@@ -78,16 +78,14 @@ class SelectClause implements DMLClauseInterface, ClauseSelectInterface {
 
 	/**
 	 * @return bool|mixed
-	 * @throws \Exception
+	 * @throws \OmlManager\ORM\Models\ReaderException
 	 */
 	public function fetchAssocOne() {
 		$this->limit(0, 1);
 		try {
 			$modelCollection = new ModelCollection($this->getModelReader(),
 				SDBManagerConnections::getManager($this->getModelReader()->getModelDataDriverConfName())
-					->getDriver()
-					->query($this->getQuery(), $this->expression->getPreparedStatement())
-			);
+					->getDriver()->query($this->getQuery(), $this->expression->getPreparedStatement()));
 		}
 		catch(\Exception $e) {
 			throw $e;
@@ -102,12 +100,9 @@ class SelectClause implements DMLClauseInterface, ClauseSelectInterface {
 	 */
 	public function fetchAll($fetchAssoc = false) {
 
-		$modelCollection = new ModelCollection(
-			$this->getModelReader(),
+		$modelCollection = new ModelCollection($this->getModelReader(),
 			SDBManagerConnections::getManager($this->getModelReader()->getModelDataDriverConfName())
-				->getDriver()
-				->query($this->getQuery(), $this->expression->getPreparedStatement())
-		);
+				->getDriver()->query($this->getQuery(), $this->expression->getPreparedStatement()));
 
 		return $modelCollection->getCollections($fetchAssoc);
 	}
@@ -134,13 +129,11 @@ class SelectClause implements DMLClauseInterface, ClauseSelectInterface {
 		$tableAlias = null;
 
 		//set model
-		if ( isset($alias) ) {
-
+		if ( isset($alias) && is_string($alias) ) {
 			$this->models[$alias] = $this->modelReader;
 			$tableAlias = $this->_AS . $alias;
 		}
 		else {
-
 			$this->models[] = $this->modelReader;
 		}
 		$this->joinModel = ($this->joinModel ? $this->_ON . $this->joinModel : $this->joinModel);
