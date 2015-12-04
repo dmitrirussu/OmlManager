@@ -13,7 +13,7 @@ use OmlManager\ORM\Drivers\Exceptions\DriverException;
 class DriverManagerConnection {
 
 	/**
-	 * @var DriverInterface|DriverTransactionInterface
+	 * @var DriverInterface
 	 */
 	private $driver;
 
@@ -45,14 +45,6 @@ class DriverManagerConnection {
 				$this->driver = new MsSqlDriver($config);
 				break;
 			}
-			case DriversConfig::DRIVER_MONGO:
-			case DriversConfig::DRIVER_MONGODB: {
-				/**
-				 * @var \MongoClient
-				 */
-				$this->driver = new MongoDriver($config);
-				break;
-			}
 
 			default: {
 				throw new DriverException('Missing driver type');
@@ -62,7 +54,9 @@ class DriverManagerConnection {
 		$this->getDriver()->connect();
 	}
 
-
+	/**
+	 * @return DriverInterface|DriverTransactionInterface
+	 */
 	public function getDriver() {
 		return $this->driver;
 	}

@@ -25,7 +25,7 @@ abstract class Generator {
 	private $driverConfig;
 
 	/**
-	 * @var \OmlManager\ORM\Drivers\DriverInterface
+	 * @var \OmlManager\ORM\Drivers\DriverManagerConnection
 	 */
 	private $driver;
 
@@ -43,8 +43,7 @@ abstract class Generator {
 
 		$this->realPath = ($path ? $path : realpath(__DIR__));
 
-		$driverManagerConnection = new DriverManagerConnection($this->driverConfig);
-		$this->driver = $driverManagerConnection->getDriver();
+		$this->driver = new DriverManagerConnection($this->driverConfig);
 	}
 
 	abstract public function generateSchemaEntities();
@@ -59,7 +58,12 @@ abstract class Generator {
 	 * @return mixed
 	 */
 	protected function getAllEntitiesName() {
-		return $this->driver->getAllEntitiesName();
+		$sql = "SELECT TABLE_NAME AS table_name FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = :table_schema";
+
+		$query = $this->driver->getDriver()->query($sql, array(':table_schema' => $this->dataBaseName));
+		$result = $query->fetchAll();
+
+		return $result;
 	}
 
 	/**
@@ -69,7 +73,27 @@ abstract class Generator {
 	 * @return mixed
 	 */
 	protected function getAllForeignKey($tableName, $byReferencedTable = true) {
-		return $this->driver->getAllForeignKey($tableName, $byReferencedTable);
+
+		$where = 'TABLE_NAME = :referenced_table_name AND REFERENCED_TABLE_NAME IS NOT NULL';
+
+		if ( $byReferencedTable ) {
+			$where = 'REFERENCED_TABLE_NAME = :referenced_table_name';
+		}
+
+		$sql = "SELECT
+					TABLE_NAME,
+					CONSTRAINT_NAME,
+					COLUMN_NAME,
+					REFERENCED_COLUMN_NAME,
+					REFERENCED_TABLE_NAME
+				FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+				WHERE {$where} AND CONSTRAINT_SCHEMA = :schema_name";
+
+		$query = $this->driver->getDriver()->query($sql,
+			array(':referenced_table_name' => $tableName, ':schema_name' => $this->dataBaseName));
+
+		$result = $query->fetchAll();
+		return $result;
 	}
 
 	/**
@@ -79,7 +103,19 @@ abstract class Generator {
 	 * @return mixed
 	 */
 	protected function getEntityRelation($entityName, $fieldName) {
-		return $this->driver->getEntityRelation($entityName, $fieldName);
+		$sql = "SELECT COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS
+					WHERE
+						TABLE_NAME = :table_name AND
+						TABLE_SCHEMA = :table_schema AND
+						COLUMN_NAME = :column_name";
+
+		$query = $this->driver->getDriver()->query($sql,
+			array(':table_name' => $entityName, ':table_schema' => $this->dataBaseName,
+			':column_name' =>$fieldName
+		));
+
+		$result = $query->fetchOne();
+		return $result;
 	}
 
 	/**
@@ -88,7 +124,9 @@ abstract class Generator {
 	 * @return mixed
 	 */
 	protected function getEntityInfo($tableName) {
-		return $this->driver->getEntityInfo($tableName);
+		$query = $this->driver->getDriver()->query("DESCRIBE {$this->dataBaseName}.$tableName", array());
+
+		return $query->fetchAll();
 	}
 
 

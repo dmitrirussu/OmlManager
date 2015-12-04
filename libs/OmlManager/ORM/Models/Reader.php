@@ -40,7 +40,6 @@ class Reader implements ReaderInterface {
 		$this->model = $modelObject;
 
 		$parentReflection = $this->reflectionModelClass = new \ReflectionClass($this->model);
-
 		$this->modelInfo = $this->readTokensFromDocComment($this->reflectionModelClass->getDocComment());
 
 		if ( !isset($this->reflectionModelClass->getParentClass()->name) ) {
@@ -76,10 +75,6 @@ class Reader implements ReaderInterface {
 	public function getModel() {
 
 		return $this->model;
-	}
-
-	public function getClassName() {
-		return $this->reflectionModelClass->getName();
 	}
 
 	/**
@@ -195,17 +190,20 @@ class Reader implements ReaderInterface {
 	/**
 	 * Get Model Properties
 	 * @return array
+	 * @throws ReaderException
 	 */
 	public function getModelPropertiesTokens() {
 
+		if ( !($properties = $this->reflectionModelClass->getProperties()) ) {
+			throw new ReaderException('Missing properties for Model -> ' . $this->reflectionModelClass->getName());
+		}
+
 		$propertyTokens = array();
 
-		if  ($properties = $this->reflectionModelClass->getProperties()) {
-			foreach($properties as $property) {
-				$this->property = new \ReflectionProperty($this->model, $property->name);
+		foreach($properties as $property) {
+			$this->property = new \ReflectionProperty($this->model, $property->name);
 
-				$propertyTokens[] = $this->getPropertyTokens();
-			}
+			$propertyTokens[] = $this->getPropertyTokens();
 		}
 
 		return $propertyTokens;

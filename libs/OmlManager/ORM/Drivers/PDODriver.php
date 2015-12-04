@@ -3,7 +3,7 @@
  * Created by Dmitri Russu. <dmitri.russu@gmail.com>
  * Date: 15.04.2014
  * Time: 21:06
- * ${NAMESPACE}${NAME}
+ * ${NAMESPACE}${NAME} 
  */
 namespace OmlManager\ORM\Drivers;
 
@@ -106,82 +106,6 @@ class PDODriver implements DriverInterface, DriverTransactionInterface {
 		$this->queryResult->execute( $prepare );
 
 		return $this->queryResult;
-	}
-
-	/**
-	 * Get DataBase Tables
-	 * @return mixed
-	 */
-	public function getAllEntitiesName() {
-		$sql = "SELECT TABLE_NAME AS table_name FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = :table_schema";
-
-		$query = $this->query($sql, array(':table_schema' => $this->config->getDataBaseName()));
-		$result = $query->fetchAll();
-
-		return $result;
-	}
-
-	/**
-	 * Get Entity Foreign Keys
-	 * @param $tableName
-	 * @param bool $byReferencedTable
-	 * @return mixed
-	 */
-	public function getAllForeignKey($tableName, $byReferencedTable = true) {
-
-		$where = 'TABLE_NAME = :referenced_table_name AND REFERENCED_TABLE_NAME IS NOT NULL';
-
-		if ( $byReferencedTable ) {
-			$where = 'REFERENCED_TABLE_NAME = :referenced_table_name';
-		}
-
-		$sql = "SELECT
-					TABLE_NAME,
-					CONSTRAINT_NAME,
-					COLUMN_NAME,
-					REFERENCED_COLUMN_NAME,
-					REFERENCED_TABLE_NAME
-				FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-				WHERE {$where} AND CONSTRAINT_SCHEMA = :schema_name";
-
-		$query = $this->driver->query($sql,
-			array(':referenced_table_name' => $tableName, ':schema_name' => $this->config->getDataBaseName()));
-
-		$result = $query->fetchAll();
-		return $result;
-	}
-
-	/**
-	 *
-	 * @param $entityName
-	 * @param $fieldName
-	 * @return mixed
-	 */
-	public function getEntityRelation($entityName, $fieldName) {
-		$sql = "SELECT COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS
-					WHERE
-						TABLE_NAME = :table_name AND
-						TABLE_SCHEMA = :table_schema AND
-						COLUMN_NAME = :column_name";
-
-		$query = $this->driver->query($sql,
-			array(':table_name' => $entityName, ':table_schema' => $this->config->getDataBaseName(),
-				':column_name' =>$fieldName
-			));
-
-		$result = $query->fetchObject();
-		return $result;
-	}
-
-	/**
-	 * get Entity Info
-	 * @param $tableName
-	 * @return mixed
-	 */
-	public function getEntityInfo($tableName) {
-		$query = $this->driver->query("DESCRIBE {$this->config->getDataBaseName()}.$tableName", array());
-
-		return $query->fetchAll();
 	}
 
 	public function fetchFields() {

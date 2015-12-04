@@ -234,6 +234,10 @@ class EntityGenerator extends Generator {
 					array($funcName, '$this->'.$entity->Field.' = $value;'), GeneratorConf::$_SET_METHOD);
 			}
 		}
+		else {
+
+			throw new GeneratorException('DataBase table '. $entityName .' does not exist ');
+		}
 
 		return $string .= $constants.$attributes.$method;
 	}

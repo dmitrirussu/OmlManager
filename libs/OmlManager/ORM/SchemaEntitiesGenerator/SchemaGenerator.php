@@ -13,12 +13,11 @@ class SchemaGenerator extends EntityGenerator {
 	private $entities;
 
 	public function generateSchemaEntities() {
-		//Create DB Scheme
 		parent::generateSchemaEntities();
 
 		//create Entity Class
 		$this->entities = $this->getAllEntitiesName();
-		
+
 		if ( $this->entities ) {
 			foreach($this->entities AS $entity) {
 

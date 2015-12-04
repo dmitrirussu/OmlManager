@@ -37,18 +37,6 @@ class CastingValue {
 
 				break;
 			}
-			case ValueTypes::VALUE_TYPE_BINARY_DATA:
-			case ValueTypes::VALUE_TYPE_UNDEFINED:
-			case ValueTypes::VALUE_TYPE_OBJECT:
-			case ValueTypes::VALUE_TYPE_OBJECT_ID:
-			case ValueTypes::VALUE_TYPE_ARRAY: {
-
-				break;
-			}
-			case ValueTypes::VALUE_TYPE_INT_32:
-			case ValueTypes::VALUE_TYPE_INT_64:
-			case ValueTypes::VALUE_TYPE_MIN_KEY:
-			case ValueTypes::VALUE_TYPE_MAX_KEY:
 			case ValueTypes::VALUE_TYPE_SMALLINT:
 			case ValueTypes::VALUE_TYPE_MEDIUMINT:
 			case ValueTypes::VALUE_TYPE_BIGINT:
@@ -79,11 +67,6 @@ class CastingValue {
 
 				break;
 			}
-
-			case ValueTypes::VALUE_TYPE_REGULAR_EXPRESSION:
-			case ValueTypes::VALUE_TYPE_JAVASCRIPT:
-			case ValueTypes::VALUE_TYPE_SYMBOL:
-			case ValueTypes::VALUE_TYPE_JAVASCRIPT_SCOPE:
 			case ValueTypes::VALUE_TYPE_SET:
 			case ValueTypes::VALUE_TYPE_ENUM:
 			case ValueTypes::VALUE_TYPE_BLOB:
@@ -123,10 +106,6 @@ class CastingValue {
 
 				break;
 			}
-			case ValueTypes::VALUE_TYPE_INT_32:
-			case ValueTypes::VALUE_TYPE_INT_64:
-			case ValueTypes::VALUE_TYPE_MIN_KEY:
-			case ValueTypes::VALUE_TYPE_MAX_KEY:
 			case ValueTypes::VALUE_TYPE_SMALLINT:
 			case ValueTypes::VALUE_TYPE_MEDIUMINT:
 			case ValueTypes::VALUE_TYPE_BIGINT:
@@ -158,17 +137,6 @@ class CastingValue {
 
 				break;
 			}
-			case ValueTypes::VALUE_TYPE_UNDEFINED:
-			case ValueTypes::VALUE_TYPE_OBJECT:
-			case ValueTypes::VALUE_TYPE_OBJECT_ID:
-			case ValueTypes::VALUE_TYPE_ARRAY:
-			case ValueTypes::VALUE_TYPE_BINARY_DATA: {
-				break;
-			}
-			case ValueTypes::VALUE_TYPE_REGULAR_EXPRESSION:
-			case ValueTypes::VALUE_TYPE_JAVASCRIPT:
-			case ValueTypes::VALUE_TYPE_SYMBOL:
-			case ValueTypes::VALUE_TYPE_JAVASCRIPT_SCOPE:
 			case ValueTypes::VALUE_TYPE_SET:
 			case ValueTypes::VALUE_TYPE_TIMESTAMP:
 			case ValueTypes::VALUE_TYPE_DATETIME:
